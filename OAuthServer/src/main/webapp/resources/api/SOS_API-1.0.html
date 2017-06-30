@@ -1,68 +1,73 @@
 <!DOCTYPE html>
 <html>
-<head lang="en">
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, shrink-to-fit=no, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
 <link rel="shortcut icon" href="../images/favicon.ico"
 	type="image/x-icon" />
-<link href="../css/bootstrap.min.css" rel="stylesheet" />
+<link href="../css/bootstrap.css" rel="stylesheet" />
+<link href="../css/simple-sidebar.css" rel="stylesheet">
 <title>OAuthServer API</title>
-<style>
-body {
-	font-family: "Microsoft YaHei", Arial;
-}
-</style>
 </head>
 <body>
-	<div class="container-fluid">
-		<h2 class="page-header">
-			OAuthServer <small>V-1.0</small>
-		</h2>
-		<div class="alert alert-info">
-			<strong>설명</strong>: 이 문서는 OAuthServer 외부 개발 인터페이스 (API) 사용을 설명하는 데
-			사용되는 모든 정보 표시 <small class="badge">public</small> 문서로 , 다른 API를 얻기 위해
-			<mark>access_token</mark>
-			호출 필요
+	<div id="wrapper" class="toggled">
+
+		<!-- Sidebar -->
+		<div id="sidebar-wrapper">
+			<ul class="sidebar-nav">
+				<li class="sidebar-brand"><a href="#"> OAuthServer V-1.0 </a></li>
+				<li><a href="#getAccessTokenPassword">password 방식</a></li>
+				<li><a href="#getTokenAuthCode">authorization_code 방식</a></li>
+				<li><a href="#getTokenCred">client_credentials 방식</a></li>
+				<li><a href="#getTokenRest">Restful API</a></li>
+				<li><a href="#refreshToken">refresh_token 방식</a></li>
+				<li><a href="#userInfoUnity">ROLE_UNITY</a></li>
+				<li><a href="#userInfoMobile">ROLE_MOBILE</a></li>
+			</ul>
 		</div>
+		<!-- /#sidebar-wrapper -->
 
-		<div class="row">
-			<div class="col-md-3">
-				<ul class="list-group">
-					<li class="list-group-item"><a href="#getAccessTokenPassword">access_token
-							얻기 (grant_type=password)</a></li>
-					<li class="list-group-item"><a href="#getTokenAuthCode">access_token
-							얻기 (grant_type=authorization_code)</a></li>
-					<li class="list-group-item"><a href="#getTokenCred">access_token
-							얻기 (grant_type=client_credentials)</a></li>
-					<li class="list-group-item"><a href="#getTokenRest">access_token
-							얻기 (Restful API)</a></li>
-					<li class="list-group-item"><a href="#refreshToken">access_token
-							얻기 (grant_type=refresh_token)</a></li>
-					<li class="list-group-item"><a href="#userInfoUnity">사용자
-							정보 얻기 (ROLE_UNITY)</a></li>
-					<li class="list-group-item"><a href="#userInfoMobile">사용자
-							정보 얻기 (ROLE_MOBILE)</a></li>
-				</ul>
-			</div>
-			<div class="col-md-9">
-				<div class="well well-sm" id="getAccessTokenPassword">
-					<h3>
-						access_token 얻기 (grant_type=password) <small class="badge">public</small>
-					</h3>
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12">
+						<h1>
+							OAuthServer <small>V-1.0</small> <a href="#menu-toggle"
+								class="btn btn-info" id="menu-toggle">Toggle Menu</a>
+						</h1>
+						<hr />
+						<div class="alert alert-info">
+							<strong>설명 :</strong> 이 문서는 OAuthServer 외부 개발 인터페이스 (API) 사용을
+							설명하는 데 사용되는 <span class="badge badge-default">public</span> 문서로
+							모든 호츌 정보를 표시합니다. <br> 보호 Resource API를 얻기 위해서는 반드시
+							<mark>access_token</mark>
+							이 필요합니다.
+						</div>
 
-					<p class="text-muted">grant_type=password방법을 사용하여 access_token
-						얻기</p>
-
-					<ul class="list-group">
-						<li class="list-group-item">
-							<p>
-								요청 URI :
-								<code>/oauth/token</code>
-								<span class="label label-warning">POST</span>
-							</p>
-
-							<div>
-								요청 예시 :
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default" id="getAccessTokenPassword">
+							<div class="panel-heading">
+								<h3>
+									access_token 얻기 (grant_type=password) <span
+										class="badge badge-default">public</span>
+								</h3>
+							</div>
+							<div class="panel-body">
+								<p class="text-muted">grant_type=password방법을 사용하여
+									access_token 얻기</p>
+								<p>
+									요청 URI :
+									<code>/oauth/token</code>
+									<span class="label label-warning">POST</span>
+								</p>
 								<table class="table table-bordered">
 									<thead>
 										<tr>
@@ -116,49 +121,50 @@ body {
 									<code>http://localhost:8080/OAuthServer/oauth/token?client_id=6361b08fdea6400f93b2eccda8936b32&client_secret=i4KXewMI0u6i8CFEZo10mB2rGzQRXrIv&grant_type=password&scope=read&username=mobile&password=mobile</code>
 								</p>
 
-							</div> <br /> <strong>응답</strong>
+								<strong>응답</strong>
 
-							<ul class="list-group">
-								<li class="list-group-item">
-									<p>
-										정상 [200]<br />
-										<mark>
-											{"access_token":"1f60abaf-6c3f-45a8-a574-bbbe6f76083f","token_type":"bearer","expires_in":41769,"scope":"read"}
-										</mark>
-									</p>
-								</li>
-								<li class="list-group-item">
-									<p>
-										에러 [401]<br />
-										<mark> &lt;oauth&gt;&lt;error_description&gt;Bad client
-											credentials&lt;/error_description&gt;&lt;error&gt;invalid_client&lt;/error&gt;&lt;/oauth&gt;
-										</mark>
-									</p>
-								</li>
-							</ul>
-						</li>
-					</ul>
+								<ul class="list-group">
+									<li class="list-group-item">
+										<p>
+											정상 [200]<br />
+											<mark>
+												{"access_token":"1f60abaf-6c3f-45a8-a574-bbbe6f76083f","token_type":"bearer","expires_in":41769,"scope":"read"}
+											</mark>
+										</p>
+									</li>
+									<li class="list-group-item">
+										<p>
+											에러 [401]<br />
+											<mark> &lt;oauth&gt;&lt;error_description&gt;Bad
+												client
+												credentials&lt;/error_description&gt;&lt;error&gt;invalid_client&lt;/error&gt;&lt;/oauth&gt;
+											</mark>
+										</p>
+									</li>
+								</ul>
+							</div>
+
+						</div>
+					</div>
 				</div>
 
-				<div class="well well-sm" id="getTokenAuthCode">
-					<h3>
-						access_token 얻기 (grant_type=authorization_code) <small
-							class="badge">public</small>
-					</h3>
-
-					<p class="text-muted">grant_type=authorization_code 방식을 사용하여
-						access_token 얻기,code 필요</p>
-
-					<ul class="list-group">
-						<li class="list-group-item">
-							<p>
-								요청 URI :
-								<code>/oauth/token</code>
-								<span class="label label-warning">POST</span>
-							</p>
-
-							<div>
-								요청 예시 :
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default" id="getTokenAuthCode">
+							<div class="panel-heading">
+								<h3>
+									access_token 얻기 (grant_type=authorization_code) <small
+										class="badge">public</small>
+								</h3>
+							</div>
+							<div class="panel-body">
+								<p class="text-muted">grant_type=authorization_code 방식을 사용하여
+									access_token 얻기,code 필요</p>
+								<p>
+									요청 URI :
+									<code>/oauth/token</code>
+									<span class="label label-warning">POST</span>
+								</p>
 								<table class="table table-bordered">
 									<thead>
 										<tr>
@@ -205,53 +211,48 @@ body {
 								<p>
 									<code>http://localhost:8080/OAuthServer/oauth/token?client_id=unity-client&client_secret=unity&grant_type=authorization_code&code=[code]&redirect_uri=[redirect_uri]</code>
 								</p>
+								<strong>응답</strong>
 
-							</div> <br /> <strong>응답</strong>
+								<ul class="list-group">
+									<li class="list-group-item">
+										<p>
+											정상 [200]<br />
+											<mark>
+												{"access_token":"2c612eb7-a22b-45f0-8b2e-cd6f9e366772","token_type":"bearer","refresh_token":"6c984bdc-01c7-486f-93bf-5637990d8a37","expires_in":43199,"scope":"read
+												write"} </mark>
+										</p>
+									</li>
+									<li class="list-group-item">
+										<p>
+											에러 [401]<br />
+											<mark>
+												{"error":"invalid_grant","error_description":"Invalid
+												authorization code: vzmIh1"} </mark>
+										</p>
+									</li>
+								</ul>
+							</div>
 
-							<ul class="list-group">
-								<li class="list-group-item">
-									<p>
-										정상 [200]<br />
-										<mark>
-											{"access_token":"2c612eb7-a22b-45f0-8b2e-cd6f9e366772","token_type":"bearer","refresh_token":"6c984bdc-01c7-486f-93bf-5637990d8a37","expires_in":43199,"scope":"read
-											write"} </mark>
-									</p>
-								</li>
-								<li class="list-group-item">
-									<p>
-										에러 [401]<br />
-										<mark>
-											{"error":"invalid_grant","error_description":"Invalid
-											authorization code: vzmIh1"} </mark>
-									</p>
-								</li>
-							</ul>
-						</li>
-					</ul>
+						</div>
+					</div>
 				</div>
-
-				<div class="well well-sm" id="getTokenCred">
-					<p class="pull-right">
-						<a href="">반환</a>
-					</p>
-
-					<h3>
-						access_token 얻기 (grant_type=client_credentials) <small
-							class="badge">public</small>
-					</h3>
-
-					<p class="text-muted">grant_type=client_credentials 방식을 사용하여
-						access_token 얻기(username, password 필요하지 않음)</p>
-
-					<ul class="list-group">
-						<li class="list-group-item">
-							<p>
-								요청 URI :
-								<code>/oauth/token</code>
-								<span class="label label-warning">POST</span>
-							</p>
-
-							<div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default" id="getTokenCred">
+							<div class="panel-heading">
+								<h3>
+									access_token 얻기 (grant_type=client_credentials) <small
+										class="badge">public</small>
+								</h3>
+							</div>
+							<div class="panel-body">
+								<p class="text-muted">grant_type=client_credentials 방식을 사용하여
+									access_token 얻기(username, password 필요하지 않음)</p>
+								<p>
+									요청 URI :
+									<code>/oauth/token</code>
+									<span class="label label-warning">POST</span>
+								</p>
 								요청 예시 :
 								<table class="table table-bordered">
 									<thead>
@@ -293,54 +294,54 @@ body {
 								<p>
 									<code>http://localhost:8080/OAuthServer/oauth/token?client_id=test1234&client_secret=test1234&grant_type=client_credentials&scope=read</code>
 								</p>
-
-							</div> <br /> <strong>응답</strong>
-
-							<ul class="list-group">
-								<li class="list-group-item">
-									<p>
-										정상 [200]<br />
-										<mark>
-											{"access_token":"e5ea7620-5459-4d53-a7a0-6888bbb76f62","token_type":"bearer","expires_in":43199,"scope":"read"}
-										</mark>
-									</p>
-								</li>
-								<li class="list-group-item">
-									<p>
-										에러 [401]<br />
-										<mark> &lt;oauth&gt;&lt;error_description&gt;Bad client
-											credentials&lt;/error_description&gt;&lt;error&gt;invalid_client&lt;/error&gt;&lt;/oauth&gt;
-										</mark>
-									</p>
-								</li>
-							</ul>
-						</li>
-					</ul>
+								<strong>응답</strong>
+								<ul class="list-group">
+									<li class="list-group-item">
+										<p>
+											정상 [200]<br />
+											<mark>
+												{"access_token":"e5ea7620-5459-4d53-a7a0-6888bbb76f62","token_type":"bearer","expires_in":43199,"scope":"read"}
+											</mark>
+										</p>
+									</li>
+									<li class="list-group-item">
+										<p>
+											에러 [401]<br />
+											<mark> &lt;oauth&gt;&lt;error_description&gt;Bad
+												client
+												credentials&lt;/error_description&gt;&lt;error&gt;invalid_client&lt;/error&gt;&lt;/oauth&gt;
+											</mark>
+										</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
 				</div>
 
-				<div class="well well-sm" id="getTokenRest">
-					<h3>
-						access_token 얻기 (Restful API) <small class="badge">public</small>
-					</h3>
-
-					<p class="text-muted">Restful API access_token 얻기, grant_type의
-						authorization_code,password,refresh_token,client_credentials 방식 적용</p>
-
-					<ul class="list-group">
-						<li class="list-group-item">
-							<p>
-								요청 URI :
-								<code>/oauth/rest_token</code>
-								<span class="label label-warning">POST</span> <span
-									class="label label-success">REST</span>
-							</p>
-
-							<p>
-								Content-Type:
-								<mark>application/json</mark>
-							</p>
-							<div>
-								매개변수 요청 :
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default" id="getTokenRest">
+							<div class="panel-heading">
+								<h3>
+									access_token 얻기 (Restful API) <span class="badge badge-default">public</span>
+								</h3>
+							</div>
+							<div class="panel-body">
+								<p class="text-muted">Restful API access_token 얻기,
+									grant_type의
+									authorization_code,password,refresh_token,client_credentials 방식
+									적용</p>
+								<p>
+									요청 URI :
+									<code>/oauth/rest_token</code>
+									<span class="label label-warning">POST</span> <span
+										class="label label-success">REST</span>
+								</p>
+								<p>
+									Content-Type:
+									<mark>application/json</mark>
+								</p>
 								<table class="table table-bordered">
 									<thead>
 										<tr>
@@ -397,53 +398,49 @@ body {
 								<p>
 									<code>{"client_id":"test1234","client_secret":"test1234","grant_type":"password","scope":"read"}</code>
 								</p>
+								<strong>응답</strong>
 
-							</div> <br /> <strong>응답</strong>
+								<ul class="list-group">
+									<li class="list-group-item">
+										<p>
+											정상 [200]<br />
+											<mark>
+												{"access_token":"e2996930-8398-44fd-8de5-7d1b1624ced7","token_type":"bearer","refresh_token":"2b2de701-53e7-4b57-8301-e4a06ee49698","expires_in":43008,"scope":"read"}
+											</mark>
+										</p>
+									</li>
+									<li class="list-group-item">
+										<p>
+											에러 [401]<br />
+											<mark>
+												{"error":"invalid_grant","error_description":"Bad
+												credentials"} </mark>
+										</p>
+									</li>
+								</ul>
+							</div>
 
-							<ul class="list-group">
-								<li class="list-group-item">
-									<p>
-										정상 [200]<br />
-										<mark>
-											{"access_token":"e2996930-8398-44fd-8de5-7d1b1624ced7","token_type":"bearer","refresh_token":"2b2de701-53e7-4b57-8301-e4a06ee49698","expires_in":43008,"scope":"read"}
-										</mark>
-									</p>
-								</li>
-								<li class="list-group-item">
-									<p>
-										에러 [401]<br />
-										<mark>
-											{"error":"invalid_grant","error_description":"Bad
-											credentials"} </mark>
-									</p>
-								</li>
-							</ul>
-						</li>
-					</ul>
+						</div>
+					</div>
 				</div>
 
-				<div class="well well-sm" id="refreshToken">
-					<p class="pull-right">
-						<a href="">반환</a>
-					</p>
-
-					<h3>
-						새로 고침 access_token(grant_type=refresh_token) <small class="badge">public</small>
-					</h3>
-
-					<p class="text-muted">새로운 access_token을 생성후 기존 access_token는 만료
-						(grant_type=refresh_token)</p>
-
-					<ul class="list-group">
-						<li class="list-group-item">
-							<p>
-								요청 URI :
-								<code>/oauth/token</code>
-								<span class="label label-warning">POST</span>
-							</p>
-
-							<div>
-								요청 예시 :
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default" id="refreshToken">
+							<div class="panel-heading">
+								<h3>
+									새로 고침 access_token(grant_type=refresh_token) <small
+										class="badge">public</small>
+								</h3>
+							</div>
+							<div class="panel-body">
+								<p class="text-muted">새로운 access_token을 생성후 기존 access_token는
+									만료 (grant_type=refresh_token)</p>
+								<p>
+									요청 URI :
+									<code>/oauth/token</code>
+									<span class="label label-warning">POST</span>
+								</p>
 								<table class="table table-bordered">
 									<thead>
 										<tr>
@@ -484,47 +481,45 @@ body {
 								<p>
 									<code>http://localhost:8080/OAuthServer/oauth/token?client_id=test1234&client_secret=test1234&grant_type=refresh_token&refresh_token=1156ebfe-e303-4572-9fb5-4459a5d46610</code>
 								</p>
+								<strong>응답</strong>
 
-							</div> <br /> <strong>응답</strong>
-
-							<ul class="list-group">
-								<li class="list-group-item">
-									<p>
-										정상 [200]<br />
-										<mark>
-											{"access_token":"b12cace6-7ce4-4fa8-b127-cf537d15b213","token_type":"bearer","refresh_token":"2b2de701-53e7-4b57-8301-e4a06ee49698","expires_in":43199,"scope":"read"}
-										</mark>
-									</p>
-								</li>
-								<li class="list-group-item">
-									<p>
-										에러 [401]<br />
-										<mark>
-											{"error":"invalid_grant","error_description":"Invalid refresh
-											token: 1156ebfe-e303-4572-9fb5-4459a5d46610"} </mark>
-									</p>
-								</li>
-							</ul>
-						</li>
-					</ul>
+								<ul class="list-group">
+									<li class="list-group-item">
+										<p>
+											정상 [200]<br />
+											<mark>
+												{"access_token":"b12cace6-7ce4-4fa8-b127-cf537d15b213","token_type":"bearer","refresh_token":"2b2de701-53e7-4b57-8301-e4a06ee49698","expires_in":43199,"scope":"read"}
+											</mark>
+										</p>
+									</li>
+									<li class="list-group-item">
+										<p>
+											에러 [401]<br />
+											<mark>
+												{"error":"invalid_grant","error_description":"Invalid
+												refresh token: 1156ebfe-e303-4572-9fb5-4459a5d46610"} </mark>
+										</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
 				</div>
 
-				<div class="well well-sm" id="userInfoUnity">
-					<h3>현재 사용자 정보를 가져옵니다 (ROLE_UNITY)</h3>
-
-					<p class="text-muted">access_token과 ROLE_UNITY 권한을 이용하여 사용자 정보를
-						가져옵니다.</p>
-
-					<ul class="list-group">
-						<li class="list-group-item">
-							<p>
-								요청 URI :
-								<code>/unity/user_info</code>
-								<span class="label label-info">GET</span>
-							</p>
-
-							<div>
-								요청 예시 :
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default" id="userInfoUnity">
+							<div class="panel-heading">
+								<h3>현재 사용자 정보를 가져옵니다 (ROLE_UNITY)</h3>
+							</div>
+							<div class="panel-body">
+								<p class="text-muted">access_token과 ROLE_UNITY 권한을 이용하여 사용자
+									정보를 가져옵니다.</p>
+								<p>
+									요청 URI :
+									<code>/unity/user_info</code>
+									<span class="label label-info">GET</span>
+								</p>
 								<table class="table table-bordered">
 									<thead>
 										<tr>
@@ -536,7 +531,10 @@ body {
 									</thead>
 									<tbody>
 										<tr>
-											<td colspan="4">无</td>
+											<td>access_token</td>
+											<td>{access_token}</td>
+											<td>O</td>
+											<td></td>
 										</tr>
 									</tbody>
 								</table>
@@ -544,52 +542,45 @@ body {
 								<p>
 									<code>http://localhost:8080/OAuthServer/unity/user_info?access_token=b12cace6-7ce4-4fa8-b127-cf537d15b213</code>
 								</p>
+								<strong>응답</strong>
 
-							</div> <br /> <strong>응답</strong>
-
-							<ul class="list-group">
-								<li class="list-group-item">
-									<p>
-										정상 [200]<br />
-										<mark>
-											{"guid":"55b713df1c6f423e842ad68668523c49","archived":false,"username":"unity","phone":"","email":"unity@wdcy.cc","privileges":["UNITY"]}
-										</mark>
-									</p>
-								</li>
-								<li class="list-group-item">
-									<p>
-										에러 [401]<br />
-										<mark> &lt;oauth&gt;&lt;error_description&gt;Invalid
-											access token:
-											2c612eb7-a22b-45f0-8b2e-cd6f9e3667722&lt;/error_description&gt;&lt;error&gt;invalid_token&lt;/error&gt;&lt;/oauth&gt;
-										</mark>
-									</p>
-								</li>
-							</ul>
-						</li>
-					</ul>
+								<ul class="list-group">
+									<li class="list-group-item">
+										<p>
+											정상 [200]<br />
+											<mark>
+												{"guid":"55b713df1c6f423e842ad68668523c49","archived":false,"username":"unity","phone":"","email":"unity@wdcy.cc","privileges":["UNITY"]}
+											</mark>
+										</p>
+									</li>
+									<li class="list-group-item">
+										<p>
+											에러 [401]<br />
+											<mark> &lt;oauth&gt;&lt;error_description&gt;Invalid
+												access token:
+												2c612eb7-a22b-45f0-8b2e-cd6f9e3667722&lt;/error_description&gt;&lt;error&gt;invalid_token&lt;/error&gt;&lt;/oauth&gt;
+											</mark>
+										</p>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
 				</div>
-
-				<div class="well well-sm" id="userInfoMobile">
-					<p class="pull-right">
-						<a href="">반환</a>
-					</p>
-
-					<h3>현재 사용자 정보를 가져옵니다 (ROLE_MOBILE)</h3>
-
-					<p class="text-muted">access_token과 ROLE_MOBILE 권한을 이용하여 사용자
-						정보를 가져옵니다.</p>
-
-					<ul class="list-group">
-						<li class="list-group-item">
-							<p>
-								요청 URI :
-								<code>/m/user_info</code>
-								<span class="label label-info">GET</span>
-							</p>
-
-							<div>
-								요청 예시 :
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default" id="userInfoMobile">
+							<div class="panel-heading">
+								<h3>현재 사용자 정보를 가져옵니다 (ROLE_MOBILE)</h3>
+							</div>
+							<div class="panel-body">
+								<p class="text-muted">access_token과 ROLE_MOBILE 권한을 이용하여 사용자
+									정보를 가져옵니다.</p>
+								<p>
+									요청 URI :
+									<code>/m/user_info</code>
+									<span class="label label-info">GET</span>
+								</p>
 								<table class="table table-bordered">
 									<thead>
 										<tr>
@@ -601,7 +592,10 @@ body {
 									</thead>
 									<tbody>
 										<tr>
-											<td colspan="4">无</td>
+											<td>access_token</td>
+											<td>{access_token}</td>
+											<td>O</td>
+											<td></td>
 										</tr>
 									</tbody>
 								</table>
@@ -609,46 +603,58 @@ body {
 								<p>
 									<code>http://localhost:8080/OAuthServer/m/user_info?access_token=b12cace6-7ce4-4fa8-b127-cf537d15b213</code>
 								</p>
+								<strong>응답</strong>
 
-							</div> <br /> <strong>응답</strong>
+								<ul class="list-group">
+									<li class="list-group-item">
+										<p>
+											정상 [200]<br />
+											<mark>
+												{"guid":"612025cb3f964a64a48bbdf77e53c2c1","archived":false,"username":"mobile","phone":"","email":"mobile@wdcy.cc","privileges":["MOBILE"]}
+											</mark>
+										</p>
+									</li>
+									<li class="list-group-item">
+										<p>
+											에러 [401]<br />
+											<mark> &lt;oauth&gt;&lt;error_description&gt;Invalid
+												access token:
+												2c612eb7-a22b-45f0-8b2e-cd6f9e3667722&lt;/error_description&gt;&lt;error&gt;invalid_token&lt;/error&gt;&lt;/oauth&gt;
+											</mark>
+										</p>
+									</li>
+								</ul>
+							</div>
 
-							<ul class="list-group">
-								<li class="list-group-item">
-									<p>
-										정상 [200]<br />
-										<mark>
-											{"guid":"612025cb3f964a64a48bbdf77e53c2c1","archived":false,"username":"mobile","phone":"","email":"mobile@wdcy.cc","privileges":["MOBILE"]}
-										</mark>
-									</p>
-								</li>
-								<li class="list-group-item">
-									<p>
-										에러 [401]<br />
-										<mark> &lt;oauth&gt;&lt;error_description&gt;Invalid
-											access token:
-											2c612eb7-a22b-45f0-8b2e-cd6f9e3667722&lt;/error_description&gt;&lt;error&gt;invalid_token&lt;/error&gt;&lt;/oauth&gt;
-										</mark>
-									</p>
-								</li>
-							</ul>
-						</li>
-					</ul>
+						</div>
+					</div>
 				</div>
-
 			</div>
 		</div>
+		<!-- /#page-content-wrapper -->
+		<hr>
+		<footer class="footer">
+			<p class="text-center text-muted">
+				&copy; 2017 <a href="mailto:yks8890@hanmail.net">yks8890@hanmail.net</a>
+				from <a href="https://github.com/yks8890/OAuthServer"
+					target="_blank">OAuthServer</a>
+			</p>
+		</footer>
 
+		<!-- /#wrapper -->
 
-		<div class="row">
-			<div class="col-md-12">
-				<hr />
-				<p class="text-center text-muted">
-					&copy; 2017 <a href="mailto:yks8890@hanmail.net">yks8890@hanmail.net</a>
-					from <a href="https://github.com/yks8890/OAuthServer"
-						target="_blank">OAuthServer</a>
-				</p>
-			</div>
-		</div>
-	</div>
+		<!-- jQuery -->
+		<script src="../js/jquery.js"></script>
+
+		<!-- Bootstrap Core JavaScript -->
+		<script src="../js/bootstrap.min.js"></script>
+
+		<!-- Menu Toggle Script -->
+		<script>
+			$("#menu-toggle").click(function(e) {
+				e.preventDefault();
+				$("#wrapper").toggleClass("toggled");
+			});
+		</script>
 </body>
 </html>
