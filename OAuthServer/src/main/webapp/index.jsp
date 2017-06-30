@@ -39,7 +39,8 @@
 				메뉴를 통해 확인 할 수 있습니다.
 			</p>
 			<p>
-				<a class="btn btn-primary" href="#" role="button">View details
+				<a class="btn btn-primary" target="_blank"
+				href="<c:url value='/resources/api/db_table_description.html'/>" role="button">View details
 					&raquo;</a>
 			</p>
 		</div>

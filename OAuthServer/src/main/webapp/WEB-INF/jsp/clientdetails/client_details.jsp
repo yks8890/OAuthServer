@@ -14,13 +14,11 @@
 </style>
 </head>
 <body>
-	<a href="<c:url value='/' />">Home</a>
-
 	<div class="row">
-		<div class="col-md-10">
+		<div class="col-lg-10">
 			<h3>client_details</h3>
 		</div>
-		<div class="col-md-2">
+		<div class="col-lg-2">
 			<div class="pull-right">
 				<a href="register_client" class="btn btn-success btn-sm">client
 					추가</a>
@@ -72,8 +70,8 @@
 		<p class="help-block">
 			각각의 item 통신
 			<code>oauth_client_details</code>
-			데이터 테이블; 총<strong>${fun:length(clientDetailsDtoList)}</strong>기술데이터. <br />
-			spring-oauth-server데이터베이스 테이블의 방문에 대한 자세한 설명에 <a
+			데이터 테이블; 총<strong>${fun:length(clientDetailsDtoList)}</strong>기술데이터.
+			<br /> spring-oauth-server데이터베이스 테이블의 방문에 대한 자세한 설명에 <a
 				href="http://andaily.com/spring-oauth-server/db_table_description.html"
 				target="_blank">http://andaily.com/spring-oauth-server/db_table_description.html</a>
 			(또는 Access 프로젝트others 폴더 db_table_description.html파일)
